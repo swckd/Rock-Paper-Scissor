@@ -1,20 +1,26 @@
-console.log("Connected");
-
 // Consts
 const scoreIndicator = document.getElementById("scoreIndicator");
-const paperButton = document.getElementById("paperButton");
-const rockButton = document.getElementById("rockButton");
-const scissorsButton = document.getElementById("scissorsButton");
-const loaderButton = document.getElementById("loaderButton");
+const winnerText = document.getElementById("winnerText");
+
+const paperButton = document.getElementsByClassName("paperButton")[0];
+const rockButton = document.getElementsByClassName("rockButton")[0];
+const scissorsButton = document.getElementsByClassName("scissorsButton")[0];
+
+const playAgainButton = document.getElementsByClassName("playAgainButton")[0];
 
 const firstScreen = document.getElementById("firstScreen");
 const secondScreen = document.getElementById("secondScreen");
-const thirdScreen = document.querySelectorAll(".thirdScreen");
 
-var playerSelection;
-var computerSelection;
-var playerSelectionButton;
-var computerSelectionButton;
+let thirdScreen = document.querySelectorAll(".thirdScreen");
+
+let playerSelection;
+let playAgainButtonIndicator = true;
+
+// Delay
+
+async function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 // Onload
 
@@ -23,7 +29,7 @@ window.onload = function () {
 };
 
 // Score
-var score = 0;
+let score = 0;
 
 function setScore() {
   scoreIndicator.innerText = score;
@@ -33,66 +39,59 @@ function setScore() {
 
 const buttons = [paperButton, rockButton, scissorsButton];
 
-if (!playerSelection) {
-  buttons.forEach((button) => {
-    button.addEventListener(
-      "click",
-      (event) => {
-        playerSelection = button.getAttribute("id");
-        playerSelects();
-      },
-      { once: true }
-    );
+buttons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    if (!playerSelection) {
+      playerSelection = button.getAttribute("id");
+      playerSelects();
+    }
   });
+});
+
+async function playerSelects() {
+  await delay(1000); // wait for 1 second
+
+  switchToSecondScreen();
 }
 
-function playerSelects() {
-  console.log("The player has selected " + playerSelection);
-  setTimeout(switchToSecondScreen, 1000);
-}
-
-function switchToSecondScreen() {
+async function switchToSecondScreen() {
   firstScreen.classList.add("d-none");
   secondScreen.classList.remove("d-none");
-  setTimeout(
-    printSelectedButton("userSelectionButtonPlaceholder", playerSelection),
-    1000
-  );
-  setTimeout(computerSelects, 1000);
+
+  await delay(1000);
+  printSelectedButton("userSelectionButtonPlaceholder", playerSelection);
+  await delay(1500);
+  computerSelects();
 }
 
 function printSelectedButton(buttonPlaceholder, selection) {
   buttonPlaceholder = document.getElementById(buttonPlaceholder);
-  buttonPlaceholder.parentNode.innerHTML = `
-  <div
-    id="${selection}"
-    class="d-flex align-items-center justify-content-center pulse"
-  >
-    <div class="button-inside"></div>
-  </div>
-`;
+
+  const button = document.createElement("div");
+  button.id = buttonPlaceholder.getAttribute("id");
+  button.className = `${selection} d-flex align-items-center justify-content-center`;
+
+  const buttonInside = document.createElement("div");
+  buttonInside.className = "button-inside pulse";
+
+  button.appendChild(buttonInside);
+  buttonPlaceholder.parentNode.replaceChild(button, buttonPlaceholder);
 }
 
 // Computer Selection
-function computerSelects() {
+async function computerSelects() {
   let randomNumber = Math.floor(Math.random() * 3);
   computerSelection = buttons[randomNumber].getAttribute("id");
-  console.log("The computer has selected " + computerSelection);
 
-  setTimeout(
-    printSelectedButton(
-      "computerSelectionButtonPlaceholder",
-      computerSelection
-    ),
-    1000
-  );
+  await delay(1000);
+  printSelectedButton("computerSelectionButtonPlaceholder", computerSelection);
 
   compareSelections();
 }
 
-function compareSelections() {
+async function compareSelections() {
   if (playerSelection === computerSelection) {
-    console.log("Empate");
+    winnerText.innerText = "It's a draw!";
   } else if (
     (playerSelection === "rockButton" &&
       computerSelection === "scissorsButton") ||
@@ -100,30 +99,56 @@ function compareSelections() {
       computerSelection === "paperButton") ||
     (playerSelection === "paperButton" && computerSelection === "rockButton")
   ) {
-    console.log("player wins");
+    winnerText.innerText = "You win!";
     score++;
   } else {
-    console.log("computer wins");
+    winnerText.innerText = "Computer wins!";
     score--;
   }
+
+  await delay(1500);
   setScore();
-  switchToThirdScreen();
+  toggleThirdScreen();
 }
 
-function switchToThirdScreen() {
-  console.log(thirdScreen);
-
+function toggleThirdScreen() {
   thirdScreen.forEach((element) => {
-    element.classList.remove("d-none");
+    element.classList.toggle("d-none");
   });
 
-  playerSelectionButton = document.getElementById(playerSelection);
-  computerSelectionButton = document.getElementById(computerSelection);
-  console.log(playerSelectionButton.parentNode);
-  console.log(computerSelectionButton.parentNode);
+  let playerSelectionButton = document.getElementById(
+    "userSelectionButtonPlaceholder"
+  );
+  let computerSelectionButton = document.getElementById(
+    "computerSelectionButtonPlaceholder"
+  );
 
-  playerSelectionButton.parentElement.classList.remove("col-md-6");
-  playerSelectionButton.parentElement.classList.add("col-md-4");
-  computerSelectionButton.parentElement.classList.remove("col-md-6");
-  computerSelectionButton.parentElement.classList.add("col-md-4");
+  playerSelectionButton.parentElement.classList.toggle("col-md-6");
+  playerSelectionButton.parentElement.classList.toggle("col-md-4");
+  computerSelectionButton.parentElement.classList.toggle("col-md-6");
+  computerSelectionButton.parentElement.classList.toggle("col-md-4");
+
+  playAgainButton.addEventListener("click", () => playAgain());
+}
+
+function playAgain() {
+  let playerSelectionButton = document.getElementById(
+    "userSelectionButtonPlaceholder"
+  );
+  let computerSelectionButton = document.getElementById(
+    "computerSelectionButtonPlaceholder"
+  );
+  playerSelectionButton.classList.remove(playerSelection);
+  playerSelectionButton.firstElementChild.classList.remove("pulse");
+  computerSelectionButton.classList.remove(computerSelection);
+  computerSelectionButton.firstElementChild.classList.remove("pulse");
+
+  toggleThirdScreen();
+
+  secondScreen.classList.add("d-none");
+  firstScreen.classList.remove("d-none");
+
+  playerSelection = undefined;
+  computerSelection = undefined;
+  playAgainButtonIndicator = false;
 }
