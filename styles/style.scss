@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+$gradients: (
+  "scissors": linear-gradient(to right, hsl(39, 89%, 49%), hsl(40, 84%, 53%)),
+  "paper": linear-gradient(to right, hsl(230, 89%, 62%), hsl(230, 89%, 65%)),
+  "rock": linear-gradient(to right, hsl(349, 71%, 52%), hsl(349, 70%, 56%)),
+  "cyan": linear-gradient(to right, hsl(189, 59%, 53%), hsl(189, 58%, 57%)),
+  "radial": radial-gradient(circle, hsl(214, 47%, 23%), hsl(237, 49%, 15%)),
+  "score-bg": linear-gradient(to right, #f3f3f3, #ffffff),
+  "button-inside": linear-gradient(to right, hsl(0, 0%, 95%), hsl(0, 0%, 85%)),
+);
+
+$text-colors: (
+  "dark-text": hsl(229, 25%, 31%),
+  "score-text": hsl(229, 64%, 46%),
+  "header-outline": hsl(217, 16%, 45%),
+);
+
+$border-radius: 8px;
+$button-size: 152px;
+$button-extra: 23px;
+$button-inside-shadow: inset 0px 8px 0px 0px rgba(186, 191, 212, 0.99);
+
+@mixin bg-image($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@mixin button-styles($gradient, $shadow-color) {
+  width: calc(#{$button-size} + #{$button-extra});
+  height: calc(#{$button-size} + #{$button-extra});
+  border-radius: 50%;
+  background: map-get($gradients, $gradient);
+  box-shadow: 0px 10px 0px 0px $shadow-color;
+  position: relative;
+
+  .button-inside {
+    width: $button-size;
+    height: $button-size;
+    border-radius: 50%;
+    background: url("../images/icon-#{$gradient}.svg") no-repeat center,
+      map-get($gradients, "button-inside");
+    box-shadow: $button-inside-shadow;
+  }
+
+  @media (max-width: 376px) {
+    width: 123px;
+    height: 123px;
+
+    .button-inside {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+
+body {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  background: map-get($gradients, radial);
+  color: white;
+}
+
+.title_board {
+  border: 1px solid rgba(255, 255, 255, 0.2892);
+  border-radius: $border-radius;
+}
+
+.title_board img {
+  width: 159px;
+  height: 96px;
+}
+
+.score_board {
+  width: 150px;
+  background: map-get($gradients, score-bg);
+  border-radius: $border-radius;
+  @media (max-width: 376px) {
+    width: 100px;
+  }
+}
+
+.score_board span:first-child,
+.playAgainButton {
+  color: map-get($text-colors, score-text);
+  letter-spacing: 2.5px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.score_board #scoreIndicator {
+  color: #565468;
+  font-size: 64px;
+  font-weight: 700;
+}
+
+#firstScreen {
+  @include bg-image("../images/bg-triangle.svg");
+  max-width: 476px;
+
+  @media (max-width: 376px) {
+    background-size: 70%;
+  }
+}
+
+#paperButton {
+  @include button-styles(paper, rgba(42, 69, 194, 1));
+}
+
+#rockButton {
+  @include button-styles(rock, rgba(157, 22, 52, 1));
+}
+
+#scissorsButton {
+  @include button-styles(scissors, rgba(199, 108, 27, 1));
+}
+
+#paperButton,
+#rockButton,
+#scissorsButton {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#paperButton:hover:before,
+#rockButton:hover:before,
+#scissorsButton:hover:before {
+  content: "";
+  display: block;
+
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% + 5px);
+  height: calc(100% + 30px);
+  width: calc(100% + 20px);
+  background-color: rgba(255, 255, 255, 0.05);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+#secondScreen {
+  width: 50vw;
+  @media (max-width: 1200px) {
+    width: 100vw;
+  }
+}
+
+#loaderButton {
+  width: #{$button-size};
+  height: #{$button-size};
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.1);
+  @media (max-width: 376px) {
+    width: 123px;
+    height: 123px;
+  }
+}
+
+#thirdScreen {
+  width: 50vw;
+  @media (max-width: 1200px) {
+    width: 100vw;
+  }
+}
+
+.pulse {
+  animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.02);
+  }
+
+  100% {
+    box-shadow: 0 0 0 100px rgba(255, 255, 255, 0.05);
+  }
+}
+
+#resultMessage {
+  font-size: 56px;
+  font-weight: bold;
+}
+
+.playAgainButton {
+  border-radius: $border-radius;
+  background: map-get($gradients, button-inside);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px;
+}

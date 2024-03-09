@@ -1,0 +1,212 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+body {
+  font-family: "Barlow Semi Condensed", sans-serif;
+  background: radial-gradient(circle, hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+  color: white;
+}
+
+.title_board {
+  border: 1px solid rgba(255, 255, 255, 0.2892);
+  border-radius: 8px;
+}
+
+.title_board img {
+  width: 159px;
+  height: 96px;
+}
+
+.score_board {
+  width: 150px;
+  background: linear-gradient(to right, #f3f3f3, #ffffff);
+  border-radius: 8px;
+}
+@media (max-width: 376px) {
+  .score_board {
+    width: 100px;
+  }
+}
+
+.score_board span:first-child,
+.playAgainButton {
+  color: hsl(229, 64%, 46%);
+  letter-spacing: 2.5px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.score_board #scoreIndicator {
+  color: #565468;
+  font-size: 64px;
+  font-weight: 700;
+}
+
+#firstScreen {
+  background-image: url("../images/bg-triangle.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  max-width: 476px;
+}
+@media (max-width: 376px) {
+  #firstScreen {
+    background-size: 70%;
+  }
+}
+
+#paperButton {
+  width: calc(152px + 23px);
+  height: calc(152px + 23px);
+  border-radius: 50%;
+  background: linear-gradient(to right, hsl(230, 89%, 62%), hsl(230, 89%, 65%));
+  box-shadow: 0px 10px 0px 0px rgb(42, 69, 194);
+  position: relative;
+}
+#paperButton .button-inside {
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  background: url("../images/icon-paper.svg") no-repeat center, linear-gradient(to right, hsl(0, 0%, 95%), hsl(0, 0%, 85%));
+  box-shadow: inset 0px 8px 0px 0px rgba(186, 191, 212, 0.99);
+}
+@media (max-width: 376px) {
+  #paperButton {
+    width: 123px;
+    height: 123px;
+  }
+  #paperButton .button-inside {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+#rockButton {
+  width: calc(152px + 23px);
+  height: calc(152px + 23px);
+  border-radius: 50%;
+  background: linear-gradient(to right, hsl(349, 71%, 52%), hsl(349, 70%, 56%));
+  box-shadow: 0px 10px 0px 0px rgb(157, 22, 52);
+  position: relative;
+}
+#rockButton .button-inside {
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  background: url("../images/icon-rock.svg") no-repeat center, linear-gradient(to right, hsl(0, 0%, 95%), hsl(0, 0%, 85%));
+  box-shadow: inset 0px 8px 0px 0px rgba(186, 191, 212, 0.99);
+}
+@media (max-width: 376px) {
+  #rockButton {
+    width: 123px;
+    height: 123px;
+  }
+  #rockButton .button-inside {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+#scissorsButton {
+  width: calc(152px + 23px);
+  height: calc(152px + 23px);
+  border-radius: 50%;
+  background: linear-gradient(to right, hsl(39, 89%, 49%), hsl(40, 84%, 53%));
+  box-shadow: 0px 10px 0px 0px rgb(199, 108, 27);
+  position: relative;
+}
+#scissorsButton .button-inside {
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  background: url("../images/icon-scissors.svg") no-repeat center, linear-gradient(to right, hsl(0, 0%, 95%), hsl(0, 0%, 85%));
+  box-shadow: inset 0px 8px 0px 0px rgba(186, 191, 212, 0.99);
+}
+@media (max-width: 376px) {
+  #scissorsButton {
+    width: 123px;
+    height: 123px;
+  }
+  #scissorsButton .button-inside {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+#paperButton:hover,
+#rockButton:hover,
+#scissorsButton:hover {
+  cursor: pointer;
+}
+
+#paperButton:hover:before,
+#rockButton:hover:before,
+#scissorsButton:hover:before {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  top: calc(50% + 5px);
+  height: calc(100% + 30px);
+  width: calc(100% + 20px);
+  background-color: rgba(255, 255, 255, 0.05);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+#secondScreen {
+  width: 50vw;
+}
+@media (max-width: 1200px) {
+  #secondScreen {
+    width: 100vw;
+  }
+}
+
+#loaderButton {
+  width: 152px;
+  height: 152px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 376px) {
+  #loaderButton {
+    width: 123px;
+    height: 123px;
+  }
+}
+
+#thirdScreen {
+  width: 50vw;
+}
+@media (max-width: 1200px) {
+  #thirdScreen {
+    width: 100vw;
+  }
+}
+
+.pulse {
+  animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+  0% {
+    box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.02);
+  }
+  100% {
+    box-shadow: 0 0 0 100px rgba(255, 255, 255, 0.05);
+  }
+}
+#resultMessage {
+  font-size: 56px;
+  font-weight: bold;
+}
+
+.playAgainButton {
+  border-radius: 8px;
+  background: linear-gradient(to right, hsl(0, 0%, 95%), hsl(0, 0%, 85%));
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 15px;
+}
+
+/*# sourceMappingURL=style.css.map */
