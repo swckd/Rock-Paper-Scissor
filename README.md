@@ -1,6 +1,6 @@
 # E-commerce product page
 
-![Live web preview for the E-commerce product page coding challenge](./assets/images/game-desktop.gif)
+![Live web preview for the E-commerce product page coding challenge](./images/game-desktop.gif)
 
 ## Welcome! 👋
 
@@ -17,4 +17,4 @@ Your should be able to:
 ## [VISIT LIVE PREVIEW](https://swckd.github.io/E-commerce-product-page/)
 
 ## See some screenshots
-![Mobile 1](./assets/images/game-mobile.gif "Mobile 1")
+![Mobile 1](./images/game-mobile.gif "Mobile 1")
