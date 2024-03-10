@@ -17,9 +17,12 @@ $text-colors: (
 );
 
 $border-radius: 8px;
-$button-size: 152px;
 
-$button-extra: 23px;
+$button-size-md: 152px;
+$button-extra-md: 23px;
+$button-size-xs: calc($button-size-md / 2);
+$button-extra-xs: calc($button-extra-md / 2);
+
 $button-inside-shadow: inset 0px 8px 0px 0px rgba(186, 191, 212, 0.99);
 
 @mixin bg-image($url) {
@@ -29,22 +32,40 @@ $button-inside-shadow: inset 0px 8px 0px 0px rgba(186, 191, 212, 0.99);
 }
 
 @mixin button-styles($gradient, $shadow-color) {
-  width: calc(#{$button-size} + #{$button-extra});
-  height: calc(#{$button-size} + #{$button-extra});
+  width: calc(#{$button-size-md} + #{$button-extra-md});
+  height: calc(#{$button-size-md} + #{$button-extra-md});
   border-radius: 50%;
   background: map-get($gradients, $gradient);
   box-shadow: 0px 10px 0px 0px $shadow-color;
   position: relative;
 
+  @media (max-width: 376px) {
+    width: calc(#{$button-size-xs} + #{$button-extra-xs});
+    height: calc(#{$button-size-xs} + #{$button-extra-xs});
+  }
+
   .button-inside {
-    width: $button-size;
-    height: $button-size;
+    width: $button-size-md;
+    height: $button-size-md;
+
+    @media (max-width: 376px) {
+      width: #{$button-size-xs};
+      height: #{$button-size-xs};
+    }
 
     border-radius: 50%;
     background: url("../images/icon-#{$gradient}.svg") no-repeat center,
       map-get($gradients, "button-inside");
     box-shadow: $button-inside-shadow;
+
+    @media (max-width: 376px) {
+      background-size: 50%;
+    }
   }
+}
+
+.container {
+  max-width: 700px !important;
 }
 
 body {
@@ -55,21 +76,15 @@ body {
 
 .title_board {
   border: 1px solid rgba(255, 255, 255, 0.2892);
+  color: white;
+  letter-spacing: 2.5px;
   border-radius: $border-radius;
-}
-
-.title_board img {
-  width: 159px;
-  height: 96px;
 }
 
 .score_board {
-  width: 150px;
+  max-width: 150px;
   background: map-get($gradients, score-bg);
   border-radius: $border-radius;
-  @media (max-width: 376px) {
-    width: 100px;
-  }
 }
 
 .score_board span:first-child,
@@ -133,18 +148,12 @@ body {
   z-index: -1;
 }
 
-#secondScreen {
-  width: 50vw;
-  @media (max-width: 1200px) {
-    width: 95vw;
-  }
-}
-
 #loaderButton {
-  width: #{$button-size};
-  height: #{$button-size};
+  width: #{$button-size-md};
+  height: #{$button-size-md};
   border-radius: 50%;
   background-color: rgba(0, 0, 0, 0.1);
+
   @media (max-width: 376px) {
     width: 123px;
     height: 123px;
@@ -153,6 +162,7 @@ body {
 
 #thirdScreen {
   width: 50vw;
+
   @media (max-width: 1200px) {
     width: 100vw;
   }
@@ -193,4 +203,13 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   padding: 15px;
+}
+
+#rulesModal {
+  color: #3b4262;
+  text-transform: uppercase;
+}
+
+.modal-header {
+  border-bottom: 0px;
 }
