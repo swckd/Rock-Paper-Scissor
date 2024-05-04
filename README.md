@@ -1,7 +1,7 @@
 
-
-![Live web preview for the E-commerce product page coding challenge](./images/game-desktop.gif)
 # Rock, Paper, Scissors Web Game
+![Live web preview for the E-commerce product page coding challenge](./images/game-desktop.gif)
+
 
 Welcome to the Rock, Paper, Scissors web application! This project brings the classic game to your browser, allowing you to challenge the computer in a battle of wits.
 
@@ -32,4 +32,3 @@ In the future I want to add more smooth effects to transitions.
 
 ## See some screenshots
 ![Mobile 1](./images/game-mobile.gif "Mobile 1")
-![Mobile 2](./images/game-mobile.gif "Mobile 2")
