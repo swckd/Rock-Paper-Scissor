@@ -1,7 +1,7 @@
 
 # Rock, Paper, Scissors Web Game
 ![Live web preview for the E-commerce product page coding challenge](./images/game-desktop.gif)
-
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
 Welcome to the Rock, Paper, Scissors web application! This project brings the classic game to your browser, allowing you to challenge the computer in a battle of wits.
 
